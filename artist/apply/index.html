@@ -3,96 +3,143 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>アップサイクルデザイン申請フォーム（モック）</title>
+  <title>アップサイクルデザイン申請フォーム（モック｜手取り強調）</title>
   <style>
     :root{
-      --bg:#f6f7fb; --card:#fff; --text:#111827; --muted:#6b7280; --line:#e5e7eb;
-      --brand:#2563eb; --danger:#dc2626; --ok:#16a34a; --shadow: 0 10px 30px rgba(0,0,0,.08);
-      --radius: 16px; --radius-sm: 12px;
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --brand:#2563eb;
+      --danger:#dc2626;
+      --ok:#16a34a;
+      --shadow: 0 10px 30px rgba(0,0,0,.08);
+      --radius: 16px;
+      --radius-sm: 12px;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
     }
     *{box-sizing:border-box}
-    body{margin:0;font-family:var(--sans);color:var(--text);background:linear-gradient(180deg,#eef2ff 0%, var(--bg) 30%, var(--bg) 100%);}
+    body{margin:0;font-family:var(--sans);color:var(--text);background:linear-gradient(180deg,#eef2ff 0%, var(--bg) 30%, var(--bg) 100%);} 
+    a{color:inherit}
+
     .wrap{max-width:980px;margin:0 auto;padding:28px 16px 48px;}
+
     header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px;}
     .title h1{font-size:clamp(22px,3vw,30px);margin:0 0 6px;letter-spacing:.02em}
     .title p{margin:0;color:var(--muted);line-height:1.5}
-    .badge{background:rgba(37,99,235,.10);border:1px solid rgba(37,99,235,.25);color:#1d4ed8;
-      padding:10px 12px;border-radius:999px;font-size:12px;white-space:nowrap;}
+
+    .badge{background:rgba(37,99,235,.10);border:1px solid rgba(37,99,235,.25);color:#1d4ed8;padding:10px 12px;border-radius:999px;font-size:12px;white-space:nowrap;}
     @media (max-width: 880px){.badge{display:none}}
+
     .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:start;}
-    @media (max-width: 880px){.grid{grid-template-columns:1fr}}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);}
+    @media (max-width: 880px){.grid{grid-template-columns:1fr;}}
+
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);} 
     .card .hd{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
     .card .hd h2{margin:0;font-size:16px}
     .card .bd{padding:18px}
+
     .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
-    @media (max-width: 640px){.meta{grid-template-columns:1fr}}
+    @media (max-width: 640px){.meta{grid-template-columns:1fr;}}
     .meta .pill{border:1px solid var(--line);border-radius:999px;padding:10px 12px;background:#fafafa;}
     .meta .pill .k{display:block;font-size:11px;color:var(--muted)}
     .meta .pill .v{display:flex;gap:8px;align-items:baseline;margin-top:2px}
     .meta .pill .v strong{font-size:14px}
     .meta .pill .v span{font-size:12px;color:var(--muted)}
+
     form{display:grid;gap:14px}
+
     .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     @media (max-width: 640px){.row{grid-template-columns:1fr}}
+
     label{display:block;font-weight:600;font-size:13px;margin-bottom:6px}
     .hint{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4}
     .req{color:var(--danger);font-weight:700;margin-left:6px}
+
     input[type="number"], input[type="text"], textarea{
-      width:100%;padding:12px 12px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:14px;outline:none;
+      width:100%;padding:12px 12px;border:1px solid var(--line);
+      border-radius:12px;background:#fff;font-size:14px;outline:none;
       transition:.15s border-color, .15s box-shadow;
     }
+    input[type="file"]{width:100%}
     textarea{min-height:120px;resize:vertical}
+
     input:focus, textarea:focus{border-color:rgba(37,99,235,.55);box-shadow:0 0 0 4px rgba(37,99,235,.12);}
+
     .field{padding:14px;border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff}
+
     .error{margin-top:6px;color:var(--danger);font-size:12px;display:none}
     .ok{margin-top:6px;color:var(--ok);font-size:12px;display:none}
     .is-invalid input, .is-invalid textarea{border-color:rgba(220,38,38,.65);box-shadow:0 0 0 4px rgba(220,38,38,.10)}
+
     .checks{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
     .check{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fafafa;padding:10px 12px;border-radius:999px;font-size:13px;user-select:none}
     .check input{transform:translateY(1px)}
+
     .twoCol{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
-    @media (max-width: 880px){.twoCol{grid-template-columns:1fr}}
-    .preview{border:1px dashed var(--line);border-radius:16px;background:#fafafa;overflow:hidden;min-height:260px;display:grid;place-items:center;color:var(--muted);position:relative}
+    @media (max-width: 880px){.twoCol{grid-template-columns:1fr;}}
+
+    .preview{border:1px dashed var(--line);border-radius:16px;background:#fafafa;overflow:hidden;min-height:260px;display:grid;place-items:center;color:var(--muted);position:relative;}
     .preview img{width:100%;height:100%;object-fit:cover;display:none}
     .preview .ph{padding:18px;text-align:center}
     .preview .ph strong{display:block;color:#374151;margin-bottom:6px}
     .preview .tag{font-family:var(--mono);font-size:12px;background:#fff;border:1px solid var(--line);padding:6px 10px;border-radius:999px;display:inline-block}
-    .calc{display:grid;gap:10px;padding:14px;border-radius:16px;border:1px solid rgba(245,158,11,.35);
-      background:linear-gradient(180deg, rgba(245,158,11,.12), rgba(245,158,11,.06));}
+
+    /* ===== 売上見込み（手取り強調） ===== */
+    .calc{
+      display:grid;gap:12px;
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(245,158,11,.35);
+      background:linear-gradient(180deg, rgba(245,158,11,.12), rgba(245,158,11,.06));
+    }
     .calc h3{margin:0;font-size:14px}
-    .calc .line{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
-    .calc .line .k{color:#7c2d12;font-size:12px}
-    .calc .line .v{font-family:var(--mono);font-weight:700}
+    .calcGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width: 640px){.calcGrid{grid-template-columns:1fr}}
+
+    .calcBox{
+      border:1px solid rgba(17,24,39,.10);
+      background:rgba(255,255,255,.75);
+      border-radius:14px;
+      padding:12px;
+      display:grid;gap:8px;
+    }
+    .calcBox .k{color:#7c2d12;font-size:12px}
+    .calcBox .big{
+      font-family:var(--mono);
+      font-weight:900;
+      font-size:22px;
+      letter-spacing:.01em;
+      color:#111827;
+    }
+    .calcBox .sub{display:flex;justify-content:space-between;gap:10px;color:#92400e;font-size:12px}
+    .calcBox .sub .v{font-family:var(--mono);font-weight:700;color:#111827}
+
     .calc .note{margin:0;color:#92400e;font-size:12px;line-height:1.4}
+
     .actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:4px}
-    button{border:0;border-radius:999px;padding:12px 16px;font-weight:700;cursor:pointer;font-size:14px}
+    button{border:0;border-radius:999px;padding:12px 16px;font-weight:700;cursor:pointer;font-size:14px;}
     .btn-primary{background:var(--brand);color:#fff}
     .btn-ghost{background:#fff;border:1px solid var(--line);color:#111827}
     .btn-primary:disabled{opacity:.5;cursor:not-allowed}
-    .toast{position:fixed;left:16px;right:16px;bottom:16px;max-width:980px;margin:0 auto;background:#0b1220;color:#fff;
-      border-radius:16px;padding:12px 14px;display:none;gap:10px;align-items:flex-start;box-shadow:0 18px 40px rgba(0,0,0,.22);}
+
+    .toast{position:fixed;left:16px;right:16px;bottom:16px;max-width:980px;margin:0 auto;background:#0b1220;color:#fff;border-radius:16px;padding:12px 14px;display:none;gap:10px;align-items:flex-start;box-shadow:0 18px 40px rgba(0,0,0,.22);}
     .toast .dot{width:10px;height:10px;border-radius:999px;background:#22c55e;margin-top:6px;flex:0 0 auto}
     .toast .msg{line-height:1.45;font-size:13px}
-    .toast code{font-family:var(--mono);font-size:12px;background:rgba(255,255,255,.08);padding:2px 6px;border-radius:8px}
+
+    footer{margin-top:14px;color:var(--muted);font-size:12px;line-height:1.55}
     .small{font-size:12px;color:var(--muted)}
     .divider{height:1px;background:var(--line);margin:12px 0}
-    nav a{display:inline-block;margin-right:10px;color:#1d4ed8;text-decoration:none;font-size:13px}
-    nav a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
       <div class="title">
-        <h1>アップサイクルデザイン申請フォーム（モック）</h1>
-        <p>アーティストが「制作可能点数・制作日数・アップサイクル内容・説明文・デザイン案・希望販売価格」を申請する想定です。</p>
-        <nav>
-          <a href="/artist/projects">/artist/projects</a>
-          <a href="/artist/apply">/artist/apply</a>
-        </nav>
+        <h1>アップサイクルデザイン申請フォーム（モック｜手取り強調）</h1>
+        <p>売上見込みは「売上総額 × アーティスト料率（50%）」で<strong>手取りを強調表示</strong>します。</p>
       </div>
       <div class="badge" title="ブランド側の登録値（モック）">ブランド設定値：最低点数 <b id="minReq">5</b> ／ 在庫数 <b id="stockReq">30</b> ／ 参考上代 <b id="msrpReq">12,000</b> 円</div>
     </header>
@@ -139,7 +186,7 @@
               <div class="field" id="f-price">
                 <label for="price">希望販売価格<span class="req">*</span></label>
                 <input id="price" name="price" type="number" inputmode="numeric" min="0" step="1" placeholder="参考上代の 50 - 200％が目安です" required />
-                <div class="hint">入力すると売上見込みを自動計算します（最低点数／最大点数）。</div>
+                <div class="hint">入力すると「あなたの手取り（50%）」を自動計算します。</div>
                 <div class="error" data-err="price">※0以上の数字を入力してください。</div>
                 <div class="ok" data-ok="price">参考上代に対する倍率：<b id="ratio">-</b></div>
               </div>
@@ -171,7 +218,7 @@
             <div class="field" id="f-desc">
               <label for="desc">説明文<span class="req">*</span></label>
               <textarea id="desc" name="desc" placeholder="〇〇〇" required></textarea>
-              <div class="hint">（例文は後で差し替え想定）デザインの狙い・制作工程・注意点などを記入します。</div>
+              <div class="hint">デザインの狙い・制作工程・注意点などを記入します。</div>
               <div class="error" data-err="desc">※説明文を入力してください。</div>
             </div>
 
@@ -192,11 +239,21 @@
               </div>
             </div>
 
-            <div class="calc" aria-label="売上見込み">
-              <h3>売上見込み（自動計算）</h3>
-              <div class="line"><div class="k">最低制作可能点数 <b id="calcMin">-</b> の場合</div><div class="v" id="revMin">-</div></div>
-              <div class="line"><div class="k">最大制作可能点数 <b id="calcMax">-</b> の場合</div><div class="v" id="revMax">-</div></div>
-              <p class="note">※売上見込み = 希望販売価格 × 点数（手数料・原価などは未考慮）</p>
+            <div class="calc" aria-label="手取り見込み">
+              <h3>手取り見込み（アーティスト 50% を強調）</h3>
+              <div class="calcGrid">
+                <div class="calcBox">
+                  <div class="k">最低制作可能点数 <b id="calcMin">-</b> の場合</div>
+                  <div class="big" id="artistMin">-</div>
+                  <div class="sub"><span>売上総額</span><span class="v" id="totalMin">-</span></div>
+                </div>
+                <div class="calcBox">
+                  <div class="k">最大制作可能点数 <b id="calcMax">-</b> の場合</div>
+                  <div class="big" id="artistMax">-</div>
+                  <div class="sub"><span>売上総額</span><span class="v" id="totalMax">-</span></div>
+                </div>
+              </div>
+              <p class="note">※手取り見込み = 売上総額 × 50%（他配分：ブランド20%／3REs20%／システム管理費10%）</p>
             </div>
 
             <div class="actions">
@@ -205,6 +262,15 @@
               <button type="submit" class="btn-primary" id="submitBtn">申請する</button>
             </div>
           </form>
+
+          <footer>
+            <div class="divider"></div>
+            <div>
+              <b>メモ（モック）</b><br>
+              ・売上見込みではなく「アーティスト手取り（50%）」を強調表示<br>
+              ・JSONには分配内訳も含めます（モック）
+            </div>
+          </footer>
         </div>
       </section>
 
@@ -212,9 +278,7 @@
         <div class="hd"><h2>送信プレビュー（JSON）</h2><span class="small">モック</span></div>
         <div class="bd">
           <div class="small" style="margin-bottom:10px;color:var(--muted)">フォーム送信でここに内容を表示します（画像はファイル名のみ）。</div>
-          <pre id="jsonOut" style="margin:0;white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:12px;line-height:1.5;background:#0b1220;color:#e5e7eb;border-radius:16px;padding:14px;border:1px solid rgba(255,255,255,.08);min-height:380px;">{
-  "status": "ready"
-}</pre>
+          <pre id="jsonOut" style="margin:0;white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:12px;line-height:1.5;background:#0b1220;color:#e5e7eb;border-radius:16px;padding:14px;border:1px solid rgba(255,255,255,.08);min-height:380px;">{\n  "status": "ready"\n}</pre>
         </div>
       </aside>
     </div>
@@ -229,6 +293,15 @@
     // ======= ブランド側の登録値（モック） =======
     const BRAND = { minQty: 5, stockQty: 30, msrp: 12000 };
 
+    // ======= 売上配分（固定） =======
+    const RATE = {
+      artist: 0.5,
+      brand: 0.2,
+      threeRes: 0.2,
+      system: 0.1,
+    };
+
+    // ======= DOM =======
     const form = document.getElementById('appForm');
     const minQty = document.getElementById('minQty');
     const maxQty = document.getElementById('maxQty');
@@ -243,10 +316,12 @@
     const imgPreview = document.getElementById('imgPreview');
     const imgPlaceholder = document.getElementById('imgPlaceholder');
 
-    const revMin = document.getElementById('revMin');
-    const revMax = document.getElementById('revMax');
     const calcMin = document.getElementById('calcMin');
     const calcMax = document.getElementById('calcMax');
+    const artistMin = document.getElementById('artistMin');
+    const artistMax = document.getElementById('artistMax');
+    const totalMin = document.getElementById('totalMin');
+    const totalMax = document.getElementById('totalMax');
 
     const jsonOut = document.getElementById('jsonOut');
     const submitBtn = document.getElementById('submitBtn');
@@ -254,6 +329,7 @@
     const ratioEl = document.getElementById('ratio');
     const okPrice = document.querySelector('[data-ok="price"]');
 
+    // ======= 表示：ブランド設定値 =======
     function setBrand() {
       document.getElementById('brandMin').textContent = String(BRAND.minQty);
       document.getElementById('brandStock').textContent = String(BRAND.stockQty);
@@ -265,31 +341,53 @@
       document.getElementById('stockReqInline').textContent = String(BRAND.stockQty);
     }
 
-    function yen(n){ if(!Number.isFinite(n)) return '-'; return `${Math.trunc(n).toLocaleString('ja-JP')}円`; }
+    // ======= helpers =======
+    function yen(n) {
+      if (!Number.isFinite(n)) return '-';
+      return `${Math.trunc(n).toLocaleString('ja-JP')}円`;
+    }
 
-    function showError(fieldId, key, on){
+    function showError(fieldId, key, on) {
       const field = document.getElementById(fieldId);
       const msg = field.querySelector(`[data-err="${key}"]`);
-      if(!field || !msg) return;
+      if (!field || !msg) return;
       field.classList.toggle('is-invalid', !!on);
       msg.style.display = on ? 'block' : 'none';
     }
 
-    function showOkPrice(on){ okPrice.style.display = on ? 'block' : 'none'; }
+    function showOkPrice(on) {
+      okPrice.style.display = on ? 'block' : 'none';
+    }
 
-    function getSelectedDetails(){
+    function getSelectedDetails() {
       const nodes = [...form.querySelectorAll('input[name="detail"]:checked')];
       const list = nodes.map(n => n.value);
-      if(list.includes('その他')){
+      // "その他" の場合はテキスト追記
+      if (list.includes('その他')) {
         const txt = (otherText.value || '').trim();
-        if(txt) return list.filter(v => v !== 'その他').concat(`その他：${txt}`);
+        if (txt) {
+          return list.filter(v => v !== 'その他').concat(`その他：${txt}`);
+        }
       }
       return list;
     }
 
-    function updateDetailPreview(){ detailPreview.value = getSelectedDetails().join(','); }
+    function updateDetailPreview() {
+      const list = getSelectedDetails();
+      detailPreview.value = list.join(',');
+    }
 
-    function updateSales(){
+    function breakdown(total) {
+      return {
+        total,
+        artist: total * RATE.artist,
+        brand: total * RATE.brand,
+        threeRes: total * RATE.threeRes,
+        system: total * RATE.system,
+      };
+    }
+
+    function updatePayout() {
       const p = Number(price.value);
       const mi = Number(minQty.value);
       const ma = Number(maxQty.value);
@@ -297,12 +395,30 @@
       calcMin.textContent = Number.isFinite(mi) && mi >= 0 ? String(mi) : '-';
       calcMax.textContent = Number.isFinite(ma) && ma >= 0 ? String(ma) : '-';
 
-      revMin.textContent = (Number.isFinite(p)&&p>=0&&Number.isFinite(mi)&&mi>=0) ? yen(p*mi) : '-';
-      revMax.textContent = (Number.isFinite(p)&&p>=0&&Number.isFinite(ma)&&ma>=0) ? yen(p*ma) : '-';
+      // 最低
+      if (Number.isFinite(p) && p >= 0 && Number.isFinite(mi) && mi >= 0) {
+        const b = breakdown(p * mi);
+        artistMin.textContent = `あなたの手取り：${yen(b.artist)}`;
+        totalMin.textContent = yen(b.total);
+      } else {
+        artistMin.textContent = '-';
+        totalMin.textContent = '-';
+      }
 
-      if(Number.isFinite(p) && p > 0 && BRAND.msrp > 0){
+      // 最大
+      if (Number.isFinite(p) && p >= 0 && Number.isFinite(ma) && ma >= 0) {
+        const b = breakdown(p * ma);
+        artistMax.textContent = `あなたの手取り：${yen(b.artist)}`;
+        totalMax.textContent = yen(b.total);
+      } else {
+        artistMax.textContent = '-';
+        totalMax.textContent = '-';
+      }
+
+      // 参考上代の倍率
+      if (Number.isFinite(p) && p > 0 && BRAND.msrp > 0) {
         const r = p / BRAND.msrp;
-        ratioEl.textContent = `${(r*100).toFixed(0)}%（${r.toFixed(2)}x）`;
+        ratioEl.textContent = `${(r * 100).toFixed(0)}%（${r.toFixed(2)}x）`;
         showOkPrice(true);
       } else {
         ratioEl.textContent = '-';
@@ -310,16 +426,16 @@
       }
     }
 
-    function updateOtherEnable(){
+    function updateOtherEnable() {
       const enabled = detailOther.checked;
       otherText.disabled = !enabled;
-      if(!enabled) otherText.value = '';
+      if (!enabled) otherText.value = '';
       updateDetailPreview();
     }
 
-    function updateImagePreview(){
+    function updateImagePreview() {
       const file = imgInput.files?.[0];
-      if(!file){
+      if (!file) {
         imgPreview.style.display = 'none';
         imgPlaceholder.style.display = 'block';
         imgPreview.src = '';
@@ -332,20 +448,27 @@
       imgPlaceholder.style.display = 'none';
     }
 
-    function validateAll(){
+    // ======= validation =======
+    function validateAll() {
       let ok = true;
+
+      // min
       const mi = Number(minQty.value);
       const minBad = !(Number.isFinite(mi) && mi >= BRAND.minQty);
-      showError('f-min','min',minBad); ok = ok && !minBad;
+      showError('f-min', 'min', minBad);
+      ok = ok && !minBad;
 
+      // max
       const ma = Number(maxQty.value);
       const maxBad = !(Number.isFinite(ma) && ma <= BRAND.stockQty && ma >= 0);
-      showError('f-max','max',maxBad); ok = ok && !maxBad;
+      showError('f-max', 'max', maxBad);
+      ok = ok && !maxBad;
 
-      if(!minBad && !maxBad){
+      // relationship: min <= max
+      if (!minBad && !maxBad) {
         const relBad = mi > ma;
-        if(relBad){
-          showError('f-min','min',true);
+        if (relBad) {
+          showError('f-min', 'min', true);
           document.querySelector('[data-err="min"]').textContent = '※最低点数は最大点数以下にしてください。';
           ok = false;
         } else {
@@ -353,102 +476,165 @@
         }
       }
 
+      // days
       const d = Number(days.value);
       const daysBad = !(Number.isFinite(d) && d >= 1);
-      showError('f-days','days',daysBad); ok = ok && !daysBad;
+      showError('f-days', 'days', daysBad);
+      ok = ok && !daysBad;
 
+      // price
       const p = Number(price.value);
       const priceBad = !(Number.isFinite(p) && p >= 0);
-      showError('f-price','price',priceBad); ok = ok && !priceBad;
+      showError('f-price', 'price', priceBad);
+      ok = ok && !priceBad;
 
+      // detail
       const det = [...form.querySelectorAll('input[name="detail"]:checked')];
       const detailBad = det.length === 0;
-      document.querySelector('[data-err="detail"]').style.display = detailBad ? 'block' : 'none';
+      const detailErr = document.querySelector('[data-err="detail"]');
+      detailErr.style.display = detailBad ? 'block' : 'none';
       document.getElementById('f-details').classList.toggle('is-invalid', detailBad);
       ok = ok && !detailBad;
 
+      // desc
       const desc = document.getElementById('desc');
       const descBad = !(desc.value || '').trim();
-      showError('f-desc','desc',!!descBad); ok = ok && !descBad;
+      showError('f-desc', 'desc', !!descBad);
+      ok = ok && !descBad;
 
+      // image
       const imgBad = !(imgInput.files && imgInput.files.length > 0);
-      showError('f-image','image',imgBad); ok = ok && !imgBad;
+      showError('f-image', 'image', imgBad);
+      ok = ok && !imgBad;
 
       submitBtn.disabled = !ok;
       return ok;
     }
 
-    // toast
+    // ======= toast =======
     const toast = document.getElementById('toast');
     const toastMsg = document.getElementById('toastMsg');
     const toastDot = document.getElementById('toastDot');
     let toastTimer;
-    function showToast(message, ok=true){
+
+    function showToast(message, ok=true) {
       toastDot.style.background = ok ? '#22c55e' : '#f97316';
       toastMsg.textContent = message;
       toast.style.display = 'flex';
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(()=>{ toast.style.display='none'; }, 2600);
+      toastTimer = setTimeout(() => {
+        toast.style.display = 'none';
+      }, 2600);
     }
 
-    function bind(){
-      [minQty,maxQty,price].forEach(el => el.addEventListener('input', ()=>{ updateSales(); validateAll(); }));
+    // ======= events =======
+    function bind() {
+      // recalcs
+      [minQty, maxQty, price].forEach(el => el.addEventListener('input', () => {
+        updatePayout();
+        validateAll();
+      }));
       [days, document.getElementById('desc')].forEach(el => el.addEventListener('input', validateAll));
 
-      form.querySelectorAll('input[name="detail"]').forEach(el => el.addEventListener('change', ()=>{ updateOtherEnable(); validateAll(); }));
-      otherText.addEventListener('input', updateDetailPreview);
+      // details
+      form.querySelectorAll('input[name="detail"]').forEach(el => {
+        el.addEventListener('change', () => {
+          updateOtherEnable();
+          validateAll();
+        });
+      });
+      otherText.addEventListener('input', () => {
+        updateDetailPreview();
+      });
 
-      imgInput.addEventListener('change', ()=>{ updateImagePreview(); validateAll(); });
+      // image
+      imgInput.addEventListener('change', () => {
+        updateImagePreview();
+        validateAll();
+      });
 
-      form.addEventListener('submit', (e)=>{
+      // submit
+      form.addEventListener('submit', (e) => {
         e.preventDefault();
         const ok = validateAll();
-        if(!ok){ showToast('未入力/エラーがあります。赤い項目をご確認ください。', false); return; }
+        if (!ok) {
+          showToast('未入力/エラーがあります。赤い項目をご確認ください。', false);
+          return;
+        }
+
+        const p = Number(price.value);
+        const mi = Number(minQty.value);
+        const ma = Number(maxQty.value);
+        const bMin = breakdown(p * mi);
+        const bMax = breakdown(p * ma);
 
         const payload = {
           brand_constraints: BRAND,
-          min_qty: Number(minQty.value),
-          max_qty: Number(maxQty.value),
+          payout_rate: RATE,
+          min_qty: mi,
+          max_qty: ma,
           production_days_estimate: Number(days.value),
           upcycle_details: getSelectedDetails().join(','),
           description: document.getElementById('desc').value.trim(),
-          desired_price_yen: Number(price.value),
-          revenue_estimate: { min_qty: Number(minQty.value) * Number(price.value), max_qty: Number(maxQty.value) * Number(price.value) },
+          desired_price_yen: p,
+          payout_estimate: {
+            min_qty: bMin,
+            max_qty: bMax,
+          },
           design_image: imgInput.files?.[0]?.name || null,
-          submitted_at: new Date().toISOString()
+          submitted_at: new Date().toISOString(),
         };
+
         jsonOut.textContent = JSON.stringify(payload, null, 2);
         showToast('申請しました（モック）。右側にJSONを表示しました。');
       });
 
-      form.addEventListener('reset', ()=>{
-        setTimeout(()=>{
-          document.querySelectorAll('.error').forEach(el=>el.style.display='none');
-          document.querySelectorAll('.is-invalid').forEach(el=>el.classList.remove('is-invalid'));
+      // reset
+      form.addEventListener('reset', () => {
+        setTimeout(() => {
+          // clear errors
+          document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+          document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
           document.getElementById('f-details').classList.remove('is-invalid');
-
-          detailOther.checked=false; otherText.value=''; otherText.disabled=true; detailPreview.value='';
-          imgInput.value=''; updateImagePreview();
-          updateSales(); submitBtn.disabled=false;
-          jsonOut.textContent = JSON.stringify({status:'ready'}, null, 2);
-        },0);
+          // clear preview
+          detailOther.checked = false;
+          otherText.value = '';
+          otherText.disabled = true;
+          detailPreview.value = '';
+          imgInput.value = '';
+          updateImagePreview();
+          updatePayout();
+          submitBtn.disabled = false;
+          jsonOut.textContent = JSON.stringify({ status: 'ready' }, null, 2);
+        }, 0);
       });
 
-      document.getElementById('fillSample').addEventListener('click', ()=>{
+      // sample fill
+      document.getElementById('fillSample').addEventListener('click', () => {
         minQty.value = BRAND.minQty;
         maxQty.value = BRAND.stockQty;
         days.value = 10;
         price.value = 8500;
         document.getElementById('desc').value = '在庫アイテムの個体差（色落ち/キズ）を活かし、ペイントとパッチで一点ものとして再構成します。\n制作工程：下地処理 → ペイント → 乾燥 → パッチ縫製 → 仕上げ。';
-        form.querySelectorAll('input[name="detail"]').forEach(el=>el.checked=false);
+
+        // details
+        form.querySelectorAll('input[name="detail"]').forEach(el => el.checked = false);
         form.querySelector('input[name="detail"][value="ペイント・染色"]').checked = true;
         form.querySelector('input[name="detail"][value="パッチ・ワッペン"]').checked = true;
-        updateOtherEnable(); updateSales(); validateAll();
+
+        updateOtherEnable();
+        updatePayout();
+        validateAll();
         showToast('サンプル値を入力しました（画像は手動で選択してください）');
       });
     }
 
-    setBrand(); updateOtherEnable(); updateSales(); bind(); validateAll();
+    // init
+    setBrand();
+    updateOtherEnable();
+    updatePayout();
+    bind();
+    validateAll();
   </script>
 </body>
 </html>
